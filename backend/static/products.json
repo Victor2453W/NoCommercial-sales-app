@@ -1,0 +1,48 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Ноутбук",
+      "description": "Самый мощный и дешевый ноутбук",
+      "category": "Электроника",
+      "age_rating": "12+",
+      "price": 15000.0,
+      "stock": 100,
+      "status": "in_stock",
+      "created_at": "2025-05-22"
+    },
+    {
+      "id": 2,
+      "name": "Cyberpunk 2077",
+      "description": "Книга \"Cyberpunk 2077\"",
+      "category": "Книги",
+      "age_rating": "12+",
+      "price": 1000.0,
+      "stock": 10,
+      "status": "in_stock",
+      "created_at": "2025-05-22"
+    },
+    {
+      "id": 3,
+      "name": "Золотой свитер",
+      "description": "Свитер, сделанный из хлопка",
+      "category": "Одежда, обувь и аксессуары",
+      "age_rating": "12+",
+      "price": 50000.0,
+      "stock": 10,
+      "status": "in_stock",
+      "created_at": "2025-05-22"
+    },
+    {
+      "id": 4,
+      "name": "Лопата",
+      "description": "100% не из Китая",
+      "category": "Дом и сад",
+      "age_rating": "6+",
+      "price": 100.0,
+      "stock": 1000,
+      "status": "in_stock",
+      "created_at": "2025-05-22"
+    }
+  ]
+}

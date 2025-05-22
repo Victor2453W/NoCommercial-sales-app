@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ozon Seller 1",
+      "client_id": "123456",
+      "api_key": "abcdef-1234-5678-91011",
+      "role": "admin"
+    }
+  ]
+}
