@@ -39,7 +39,7 @@ export function Component() {
       <CardHeader>
         <CardTitle>График продаж на маркетплейсах</CardTitle>
         <CardDescription>
-          Статистика, составленная на основе анализа продаж наших клиенттов за 6 месяцев
+          Статистика, составленная на основе анализа продаж наших клиентов за 6 месяцев
         </CardDescription>
       </CardHeader>
       <CardContent>

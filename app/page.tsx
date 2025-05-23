@@ -57,11 +57,11 @@ export default function Home() {
       {/* Cases Section */}
       <section className="mb-20">
         <h2 className="text-3xl font-bold mb-12 text-center">Наши кейсы</h2>
-        <div className="flex flex-col md:flex-row gap-8 items-center">
-          <div className="md:w-1/2 h-64">
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:w-1/2 m-8 ml-0">
             <Component />
           </div>
-          <div className="md:w-1/2">
+          <div className="w-full md:w-1/2 m-8 ml-0">
             <p className="text-blue-600 font-bold mb-4">+217% за меньше чем полгода</p>
             <h3 className="text-2xl font-bold mb-4">Детские товары на Wildberries</h3>
             <ul className="list-disc pl-6 text-gray-600">
