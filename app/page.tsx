@@ -1,24 +1,5 @@
-// import { type ChartConfig } from "@/components/ui/chart"
- 
-// const chartConfig = {
-//   desktop: {
-//     label: "Desktop",
-//     color: "#2563eb",
-//   },
-//   mobile: {
-//     label: "Mobile",
-//     color: "#60a5fa",
-//   },
-// } satisfies ChartConfig
-
-// const chartData = [
-//   { month: "January", desktop: 186, mobile: 80 },
-//   { month: "February", desktop: 305, mobile: 200 },
-//   { month: "March", desktop: 237, mobile: 120 },
-//   { month: "April", desktop: 73, mobile: 190 },
-//   { month: "May", desktop: 209, mobile: 130 },
-//   { month: "June", desktop: 214, mobile: 140 },
-// ]
+import Component from '@/components/TheAnalytics';
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -39,27 +20,33 @@ export default function Home() {
       {/* Features Grid */}
       <section className="grid md:grid-cols-3 gap-8 mb-20">
         <div className="p-6 border rounded-xl hover:shadow-lg transition-shadow">
-          <img 
-            src="https://cdn-icons-png.flaticon.com/512/3063/3063989.png" 
-            alt="Ракета" 
+          <Image 
+            src="/3063989.png" 
+            alt="Ракета"  
+            width={64}
+            height={64}
             className="w-12 h-12 mb-4"
           />
           <h3 className="text-xl font-bold mb-4">Продвижение товаров</h3>
           <p className="text-gray-600">Оптимизация карточек, работа с рейтингами, запуск рекламы</p>
         </div>
         <div className="p-6 border rounded-xl hover:shadow-lg transition-shadow">
-          <img 
-            src="https://cdn-icons-png.flaticon.com/512/3094/3094843.png" 
+          <Image 
+            src="/3094843.png" 
             alt="График" 
+            width={64}
+            height={64}
             className="w-12 h-12 mb-4"
           />
           <h3 className="text-xl font-bold mb-4">Аналитика продаж</h3>
           <p className="text-gray-600">Мониторинг позиций, прогнозирование спроса, анализ конкурентов</p>
         </div>
         <div className="p-6 border rounded-xl hover:shadow-lg transition-shadow">
-          <img 
-            src="https://cdn-icons-png.flaticon.com/512/9684/9684420.png" 
+          <Image
+            src="/9684420.png" 
             alt="Робот" 
+            width={64}
+            height={64}
             className="w-12 h-12 mb-4"
           />
           <h3 className="text-xl font-bold mb-4">Автоматизация</h3>
@@ -72,10 +59,10 @@ export default function Home() {
         <h2 className="text-3xl font-bold mb-12 text-center">Наши кейсы</h2>
         <div className="flex flex-col md:flex-row gap-8 items-center">
           <div className="md:w-1/2 h-64">
-            
+            <Component />
           </div>
           <div className="md:w-1/2">
-            <p className="text-blue-600 font-bold mb-4">+217% за 3 месяца</p>
+            <p className="text-blue-600 font-bold mb-4">+217% за меньше чем полгода</p>
             <h3 className="text-2xl font-bold mb-4">Детские товары на Wildberries</h3>
             <ul className="list-disc pl-6 text-gray-600">
               <li>Оптимизация SEO-параметров</li>
