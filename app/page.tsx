@@ -29,7 +29,7 @@ export default function Home() {
       <section className="grid md:grid-cols-3 gap-8 mb-20">
         <div className="p-6 border rounded-xl hover:shadow-lg transition-shadow">
           <Image
-            src="/3063989.png"
+            src="/icons/3063989.png"
             alt="Ракета"
             width={64}
             height={64}
@@ -40,7 +40,7 @@ export default function Home() {
         </div>
         <div className="p-6 border rounded-xl hover:shadow-lg transition-shadow">
           <Image
-            src="/3094843.png"
+            src="/icons/3094843.png"
             alt="График"
             width={64}
             height={64}
@@ -51,7 +51,7 @@ export default function Home() {
         </div>
         <div className="p-6 border rounded-xl hover:shadow-lg transition-shadow">
           <Image
-            src="/9684420.png"
+            src="/icons/9684420.png"
             alt="Робот"
             width={64}
             height={64}
@@ -73,7 +73,7 @@ export default function Home() {
             <p className="font-bold mb-4"><span className="text-green-600">+217%</span> прибыли меньше чем за полгода на <span className="text-blue-600">Ozon</span> и <span className="text-violet-600">Wildberries</span></p>
             <div>
               <Image
-                src="/Screenshot013721-min.png"
+                src="/charts/Screenshot013721-min.png"
                 alt="Ozon charts"
                 width={400}
                 height={400}
@@ -82,7 +82,7 @@ export default function Home() {
             </div>
             <div>
               <Image
-                src="/Screenshot014633-min.png"
+                src="/charts/Screenshot014633-min.png"
                 alt="Wildberries charts"
                 width={400}
                 height={400}
