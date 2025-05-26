@@ -1,6 +1,6 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
+import { TrendingDown } from "lucide-react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 
 import {
@@ -18,18 +18,22 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 const chartData = [
-  { month: "Январь", sales: 1652 },
-  { month: "Февраль", sales: 2070 },
-  { month: "Март", sales: 2962 },
-  { month: "Апрель", sales: 2512 },
-  { month: "Май", sales: 3179 },
-  { month: "Июнь", sales: 3208 },
+  { month: "January", price: 968, sales: 797 },
+  { month: "February", price: 1005, sales: 864 },
+  { month: "March", price: 1046, sales: 1045 },
+  { month: "April", price: 998, sales: 951 },
+  { month: "May", price: 1094, sales: 995 },
+  { month: "June", price: 937, sales: 1137 },
 ]
 
 const chartConfig = {
   desktop: {
-    label: "sales",
+    label: "Price",
     color: "hsl(var(--chart-1))",
+  },
+  mobile: {
+    label: "Sales",
+    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 
@@ -37,9 +41,9 @@ export function Component() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>График продаж на маркетплейсах</CardTitle>
+        <CardTitle>Ozon Dynamic Charts</CardTitle>
         <CardDescription>
-          Статистика, составленная на основе анализа продаж наших клиентов за 6 месяцев
+          Showing total sales and price for the last 6 months
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -62,14 +66,23 @@ export function Component() {
             />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
+              content={<ChartTooltipContent indicator="dot" />}
             />
             <Area
               dataKey="sales"
               type="natural"
+              fill="var(--color-mobile)"
+              fillOpacity={0.4}
+              stroke="var(--color-mobile)"
+              stackId="a"
+            />
+            <Area
+              dataKey="price"
+              type="natural"
               fill="var(--color-desktop)"
               fillOpacity={0.4}
               stroke="var(--color-desktop)"
+              stackId="a"
             />
           </AreaChart>
         </ChartContainer>
@@ -78,10 +91,10 @@ export function Component() {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Увеличение продаж на 1.1% в этом месяце <TrendingUp className="h-4 w-4" />
+              Trending down by -5.2% this month <TrendingDown className="h-4 w-4" />
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              Январь - Июнь 2025
+              January - June 2025
             </div>
           </div>
         </div>
