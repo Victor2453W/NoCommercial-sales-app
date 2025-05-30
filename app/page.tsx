@@ -3,6 +3,7 @@ import SheetDemo from '@/components/OzonProduct';
 import Image from 'next/image';
 import { ArrowBigDown } from 'lucide-react';
 import { ArrowBigUp } from 'lucide-react';
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -15,13 +16,13 @@ export default function Home() {
         <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
           Автоматизация, аналитика и продвижение ваших товаров на Wildberries, Ozon и Яндекс.Маркет
         </p>
-        <section>
-          <button className="bg-blue-600 text-white px-8 py-4 m-8 my-4 rounded-full text-lg hover:bg-blue-700 cursor-pointer transition-colors">
+        <section className='flex justify-center'>
+          <Link href="/registration" className="bg-blue-600 text-white px-8 py-4 m-8 rounded-full text-lg hover:bg-blue-700 cursor-pointer transition-colors">
             Зарегестрироваться
-          </button>
-          <button className="bg-white-000 px-8 py-4 m-8 my-4 rounded-full text-lg hover:bg-blue-600 hover:text-white cursor-pointer transition-colors">
+          </Link>
+          <Link href="/login" className="bg-white-000 px-8 py-4 m-8 rounded-full text-lg hover:bg-blue-600 hover:text-white cursor-pointer transition-colors">
             Уже есть аккаунт?
-          </button>
+          </Link>
         </section>
       </header>
 
@@ -75,8 +76,8 @@ export default function Home() {
               <Image
                 src="/charts/Screenshot013721-min.png"
                 alt="Ozon charts"
-                width={400}
-                height={400}
+                width={600}
+                height={600}
                 className="w-auto h-auto mb-4 rounded-xl"
               />
             </div>
@@ -84,8 +85,8 @@ export default function Home() {
               <Image
                 src="/charts/Screenshot014633-min.png"
                 alt="Wildberries charts"
-                width={400}
-                height={400}
+                width={600}
+                height={600}
                 className="w-auto h-auto mb-4 rounded-xl "
               />
             </div>
