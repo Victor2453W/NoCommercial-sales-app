@@ -1,4 +1,3 @@
-// app/register/page.tsx
 import AcmeLogo from "../ui/acme-logo";
 
 export default function RegisterPage() {
