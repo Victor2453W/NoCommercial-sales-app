@@ -2,16 +2,20 @@
 
 import * as React from "react"
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
+  // AudioWaveform,
+  Box,
+  ChartLine,
+  Rocket,
+  UserRoundPen,
+  // Command,
+  Truck,
+  ShoppingBasket,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
+  House,
+  Tally1,
+  Tally2,
+  MessageCircleMore,
+  Monitor,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -37,101 +41,164 @@ const data = {
     {
       name: "Acme Inc",
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: "Личный кабинет",
     },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
+    // {
+    //   name: "Acme Corp.",
+    //   logo: AudioWaveform,
+    //   plan: "Startup",
+    // },
+    // {
+    //   name: "Evil Corp.",
+    //   logo: Command,
+    //   plan: "Free",
+    // },
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Главная",
       url: "#",
-      icon: SquareTerminal,
-      isActive: true,
+      icon: House,
       items: [
         {
-          title: "History",
+          title: "Перейти на главную",
+          url: "#",
+        }
+      ],
+    },
+    {
+      title: "Заказы",
+      url: "#",
+      icon: ShoppingBasket,
+      items: [
+        {
+          title: "Все заказы",
           url: "#",
         },
         {
-          title: "Starred",
+          title: "Отгрузки",
           url: "#",
         },
         {
-          title: "Settings",
+          title: "Задачи",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Товары",
       url: "#",
-      icon: Bot,
+      icon: Box,
       items: [
         {
-          title: "Genesis",
+          title: "Каталог товаров",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Импорт/Экспорт",
           url: "#",
         },
         {
-          title: "Quantum",
+          title: "Цены и остатки",
+          url: "#",
+        },
+        {
+          title: "Товарные выгрузки",
+          url: "#",
+        },
+        {
+          title: "Отзывы",
           url: "#",
         },
       ],
     },
     {
-      title: "Documentation",
+      title: "Доставка",
       url: "#",
-      icon: BookOpen,
+      icon: Truck,
       items: [
         {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
+          title: "Посмотреть доставку",
           url: "#",
         },
       ],
     },
     {
-      title: "Settings",
+      title: "Аналитика",
       url: "#",
-      icon: Settings2,
+      icon: ChartLine,
       items: [
         {
-          title: "General",
+          title: "Сводка",
           url: "#",
         },
         {
-          title: "Team",
+          title: "Отчёты",
           url: "#",
         },
         {
-          title: "Billing",
+          title: "Поиск наши WB",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Продвижение",
+      url: "#",
+      icon: Rocket,
+      items: [
+        {
+          title: "Каналы",
           url: "#",
         },
         {
-          title: "Limits",
+          title: "Брошенные корзины",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Клиенты",
+      url: "#",
+      icon: UserRoundPen,
+      items: [
+        {
+          title: "Все клиенты",
+          url: "#",
+        },
+        {
+          title: "Скидки",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Диалоги",
+      url: "#",
+      icon: MessageCircleMore,
+      items: [
+        {
+          title: "Сообщения",
+          url: "#",
+        },
+        {
+          title: "Отзывы",
+          url: "#",
+        },
+        {
+          title: "Вопросы",
+          url: "#",
+        },
+        {
+          title: "Каналы",
+          url: "#",
+        },
+        {
+          title: "Шаблоны",
+          url: "#",
+        },
+        {
+          title: "Виджет чата",
           url: "#",
         },
       ],
@@ -139,19 +206,19 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
+      name: "Сайт",
       url: "#",
-      icon: Frame,
+      icon: Monitor,
     },
     {
-      name: "Sales & Marketing",
+      name: "Wildberries",
       url: "#",
-      icon: PieChart,
+      icon: Tally1,
     },
     {
-      name: "Travel",
+      name: "OZON",
       url: "#",
-      icon: Map,
+      icon: Tally2,
     },
   ],
 }
