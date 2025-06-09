@@ -278,55 +278,60 @@ export default function OzonPage() {
                 </TableBody>
               </Table>
               
-              {pageCount > 1 && (
-                <Pagination className="mt-6">
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious 
-                        href="#" 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (currentPage > 1) setCurrentPage(currentPage - 1);
-                        }}
-                      />
-                    </PaginationItem>
+              <Pagination className="mt-6">
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      size="default"
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage > 1) setCurrentPage(currentPage - 1);
+                      }}
+                    />
+                  </PaginationItem>
+                  
+                  {Array.from({ length: Math.min(5, pageCount) }).map((_, i) => {
+                    let pageNum: number;
+                    if (pageCount <= 5) {
+                      pageNum = i + 1;
+                    } else if (currentPage <= 3) {
+                      pageNum = i + 1;
+                    } else if (currentPage >= pageCount - 2) {
+                      pageNum = pageCount - 4 + i;
+                    } else {
+                      pageNum = currentPage - 2 + i;
+                    }
                     
-                    {Array.from({ length: Math.min(5, pageCount) }).map((_, i) => {
-                      let pageNum = i + 1;
-                      if (currentPage > 3 && currentPage < pageCount - 2) {
-                        pageNum = currentPage - 2 + i;
-                      } else if (currentPage >= pageCount - 2) {
-                        pageNum = pageCount - 4 + i;
-                      }
-                      
-                      return (
-                        <PaginationItem key={pageNum}>
-                          <PaginationLink
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setCurrentPage(pageNum);
-                            }}
-                            isActive={currentPage === pageNum}
-                          >
-                            {pageNum}
-                          </PaginationLink>
-                        </PaginationItem>
-                      );
-                    })}
-                    
-                    <PaginationItem>
-                      <PaginationNext 
-                        href="#" 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (currentPage < pageCount) setCurrentPage(currentPage + 1);
-                        }}
-                      />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              )}
+                    return (
+                      <PaginationItem key={pageNum}>
+                        <PaginationLink
+                          size="default"
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentPage(pageNum);
+                          }}
+                          isActive={currentPage === pageNum}
+                        >
+                          {pageNum}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+                  
+                  <PaginationItem>
+                    <PaginationNext 
+                      size="default"
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage < pageCount) setCurrentPage(currentPage + 1);
+                      }}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
             </>
           )}
         </CardContent>
