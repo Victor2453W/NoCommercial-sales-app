@@ -57,23 +57,23 @@ const data = {
   navMain: [
     {
       title: "Главная",
-      url: "#",
+      url: "/",
       icon: House,
       items: [
         {
           title: "Перейти на главную",
-          url: "#",
+          url: "/dashboard",
         }
       ],
     },
     {
       title: "Заказы",
-      url: "#",
+      url: "/",
       icon: ShoppingBasket,
       items: [
         {
           title: "Все заказы",
-          url: "#",
+          url: "/dashboard/orders",
         },
         {
           title: "Отгрузки",
@@ -87,16 +87,16 @@ const data = {
     },
     {
       title: "Товары",
-      url: "#",
+      url: "/",
       icon: Box,
       items: [
         {
           title: "Каталог товаров",
-          url: "#",
+          url: "/dashboard/products",
         },
         {
           title: "Импорт/Экспорт",
-          url: "#",
+          url: "/dashboard/impexp",
         },
         {
           title: "Цены и остатки",
@@ -212,12 +212,12 @@ const data = {
     },
     {
       name: "Wildberries",
-      url: "#",
+      url: "/dashboard/wildberries",
       icon: Tally1,
     },
     {
       name: "OZON",
-      url: "#",
+      url: "/dashboard/ozon",
       icon: Tally2,
     },
   ],
