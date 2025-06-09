@@ -1,103 +1,139 @@
 import json
 import requests
-import psycopg2
+import mysql.connector
 
-def fetch_data(api_url): # Получение данных из API
-    response = requests.get(api_url)
+
+def fetch_product_list(api_url, headers, limit=10, offset=0):
+    # Body для API
+    payload = {
+        "filter": {
+            "status": ["ACTIVE"],
+        },
+        "limit": limit,
+        "offset": offset
+    }
+
+    response = requests.post(api_url, headers=headers, json=payload)
     response.raise_for_status()
     return response.json()
 
-def calculate_statistics(products): # Подсчет статистики по продуктам
-    total_products = len(products)
-    total_stock = sum(product["stock"] for product in products)
-    total_value = sum(product["price"] * product["stock"] for product in products)
 
-    # Возвращаются только необходимые поля
-    statistics = {
-        "total_products": total_products,
-        "total_stock": total_stock,
-        "total_value": total_value
+def fetch_product_attributes(api_url, headers, product_id):
+    # Body для API
+    payload = {
+        "filter": {
+            "product_id": [str(product_id)],
+            "visibility": "ALL"
+        },
+        "limit": 1
     }
 
-    return statistics
-
-def save_statistics(statistics, filename): # Сохранение статистики в JSON файл (если нет файла, то создаст)
-    try:
-        with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(statistics, f, ensure_ascii=False, indent=4)
-        print(f"Статистика сохранена в {filename}")
-    except Exception as e:
-        print(f"Ошибка при сохранении статистики: {e}")
+    response = requests.post(api_url, headers=headers, json=payload)
+    response.raise_for_status()
+    return response.json()
 
 
-def send_statistics(api_url, statistics): # Отправление статистики в API
-    try:
-        headers = {'Content-Type': 'application/json'}
-        response = requests.post(api_url, json=statistics, headers=headers)
-        response.raise_for_status()
-        print("Статистика успешно отправлена в API")
-    except requests.exceptions.RequestException as e:
-        print(f"Ошибка при отправке статистики: {e}")
-
-def add_products_to_db(products): # Добавляем в БД продукты, если их там нет
+def add_product_to_db(product):
+    connection = None
+    cursor = None
     try:
         # Подключение к БД
-        connection = psycopg2.connect(
-            dbname="", # Название БД
-            user="", # Логин в PostgreSQL
-            password="", # Пароль от PostgreSQL
-            host = "localhost" # Использование локально
+        connection = mysql.connector.connect(
+            user="", # Логин от MySQL
+            password="", # Пароль от MySQL 
+            host="localhost", # Локальное использование
+            database="ozon" # Название БД
         )
         cursor = connection.cursor()
 
-        for product in products:
-            # Проверяем, существует ли продукт в таблице
-            cursor.execute("SELECT COUNT(*) FROM products WHERE id = %s", (product["id"],))
-            exists = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM products WHERE id = %s", (product["id"],))
+        exists = cursor.fetchone()[0]
 
-            if exists == 0:
-                # Если продукта нет в БД,то добавляем его
-                cursor.execute("""
-                    INSERT INTO products (id, name, description, price, stock, category)
-                    VALUES (%s, %s, %s, %s, %s, %s)
-                """, (product["id"], product["name"], product["description"], product["price"], product["stock"], product["category"]))
-                print(f"Добавлен продукт: {product['name']}")
+        if exists == 0:
+            cursor.execute("""
+                INSERT INTO products (id, offer_id, name, quantity)
+                VALUES (%s, %s, %s, %s)
+            """, (
+                product["id"],
+                product["offer_id"],
+                product["name"],
+                product["quantity"]
+            ))
+            print(f"Добавлен продукт: {product['name']}")
 
-        # Сохранение изменений
+            product_id = product["id"]
+
+            cursor.execute("""
+                INSERT INTO product_descriptions (product_id, description)
+                VALUES (%s, %s)
+            """, (product_id, product["description"]))
+
+            cursor.execute("""
+                INSERT INTO product_images (product_id, image_url, is_primary)
+                VALUES (%s, %s, %s)
+            """, (product_id, product["image_url"], True))
+
         connection.commit()
     except Exception as e:
-        print(f"Ошибка при добавлении продуктов в БД: {e}")
+        print(f"Ошибка при добавлении продукта в БД: {e}")
     finally:
-        cursor.close()
-        connection.close()
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
+
 
 def main():
-    # URL исходного API и целевого API для статистики
-    source_api_url = "" # URL mockAPI откуда берете данные
-    statistics_api_url = "" # Куда сохранять статистику
+    product_list_url = "https://api-seller.ozon.ru/v3/product/list" # Список товаров
+    product_info_url = "https://api-seller.ozon.ru/v4/product/info/attributes" # Получить описание хар-ик товара
+
+    headers = {
+        'Client-Id': '', # Айди от OzonAPI
+        'Api-Key': '' # Ключ от OzonAPI
+    }
 
     try:
-        #1. Получение данных
-        print("Получаем данные из исходного API...")
-        source_data = fetch_data(source_api_url)
+        print("Получаем список товаров...")
+        product_list = fetch_product_list(product_list_url, headers)
 
-        #2. Делается подсчет статистики
-        print("Делаем подсчет статистики...")
-        statistics = calculate_statistics(source_data)
-        print("Статистика:", statistics)
+        products = product_list.get('result', {}).get('items', [])
+        for product in products:
+            product_id = product["product_id"]
 
-        #3. Сохранение статистики
-        save_statistics(statistics, "statistics.json")
+            product_info = fetch_product_attributes(product_info_url, headers, product_id)
+            attributes = product_info.get('result', [])
 
-        #4. Добавляем продукты в БД
-        add_products_to_db(source_data)
+            if attributes and isinstance(attributes, list) and len(attributes) > 0:
+                product_name = attributes[0].get("name", "Не указано")
+                quantity = product.get("quants", [{}])[0].get("quant_size", 0) if product.get("quants") else 0
+                description = attributes[0].get("attributes", [{}])[2].get("values", [{}])[0].get("value",
+                                                                                                  "Нет описания")
+                image_url = attributes[0].get("primary_image", "Нет изображения")
+            else:
+                product_name = "Не указано"
+                quantity = 0
+                description = "Нет описания"
+                image_url = "Нет изображения"
 
-        #5. Отправляем статистики в API
-        send_statistics(statistics_api_url, statistics)
+            print(f"\nID товара: {product_id}")
+            print(f"Название: {product_name}")
+            print(f"Количество: {quantity}")
+            print(f"Описание: {description}")
+            print(f"Изображение: {image_url}")
 
-        print("Данный процесс завершён успешно!")
+            product_data = {
+                "id": product_id,
+                "offer_id": product["offer_id"],
+                "name": product_name,
+                "quantity": quantity,
+                "description": description,
+                "image_url": image_url
+            }
+            add_product_to_db(product_data)
+
     except Exception as e:
         print(f"Произошла ошибка: {str(e)}")
+
 
 if __name__ == "__main__":
     main()
