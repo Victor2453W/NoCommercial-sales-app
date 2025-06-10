@@ -9,7 +9,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn1.ozonusercontent.com',
+        hostname: 'cdn1.ozone.ru',
       },
     ],
   },
