@@ -36,9 +36,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </Breadcrumb>
           </div>
         </header>
-        <OzonAPIProvider>
-          { children }
-        </OzonAPIProvider>
+          <OzonAPIProvider>
+            { children }
+          </OzonAPIProvider>
         </SidebarInset>
     </SidebarProvider>
   );
