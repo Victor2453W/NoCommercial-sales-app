@@ -11,6 +11,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { OzonAPIProvider } from "@/context/OzonAPIContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -35,7 +36,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </Breadcrumb>
           </div>
         </header>
-        { children }
+        <OzonAPIProvider>
+          { children }
+        </OzonAPIProvider>
         </SidebarInset>
     </SidebarProvider>
   );

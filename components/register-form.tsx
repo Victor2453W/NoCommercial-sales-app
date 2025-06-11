@@ -70,7 +70,7 @@ export function RegisterForm({
               </div>
               <div className="text-center text-sm">
                 Do you have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
+                <a href="/login" className="underline underline-offset-4">
                   Sign in
                 </a>
               </div>

@@ -155,228 +155,244 @@ export default function OzonPage() {
   // };
 
   return (
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="text-lg font-semibold md:text-2xl">Товары Ozon</h1>
-          <div className="flex gap-2">
-            <Button onClick={clearOzonAPIData}>Очистить Client Id и Api Key</Button>
-            <DialogOzonAPI />
-            <Button variant="outline">
-              <Download className="mr-2 h-4 w-4" />
-              Экспорт
-            </Button>
-            <Button>Добавить товар</Button>
-          </div>
-        </div>
-
-        <Card>
-          <CardHeader>
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="relative w-full md:w-64">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Поиск по товарам..."
-                  className="pl-9"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              
-              <div className="flex gap-2">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline">
-                      <Filter className="mr-2 h-4 w-4" />
-                      Статус: {statusFilter === 'all' ? 'Все' : 
-                        statusFilter === 'active' ? 'Активные' :
-                        statusFilter === 'inactive' ? 'Неактивные' :
-                        statusFilter === 'moderation' ? 'На модерации' :
-                        statusFilter === 'rejected' ? 'Отклонённые' : 'В архиве'}
-                      <ChevronDown className="ml-2 h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent>
-                    <DropdownMenuItem onClick={() => setStatusFilter('all')}>Все</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setStatusFilter('active')}>Активные</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setStatusFilter('inactive')}>Неактивные</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setStatusFilter('moderation')}>На модерации</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setStatusFilter('rejected')}>Отклонённые</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setStatusFilter('archived')}>В архиве</DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </div>
-          </CardHeader>
+    <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-lg font-semibold md:text-2xl">Товары Ozon</h1>
+        
+        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+          <Button 
+            onClick={clearOzonAPIData}
+            className="w-full sm:w-auto"
+          >
+            Очистить Client Id и Api Key
+          </Button>
           
-          <CardContent>
-            {error ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <h3 className="text-lg font-medium text-gray-900">{error}</h3>
-                <p className="mt-2 text-sm text-gray-500">
-                  Не удалось загрузить данные с сервера Ozon
-                </p>
-                <Button className="mt-4" onClick={fetchProducts}>
-                  Попробовать снова
-                </Button>
-                <p className="m-4 text-sm text-gray-500">
-                  Или
-                </p>
-                <DialogOzonAPI />
-              </div>
-            ) : loading ? (
-              <div className="space-y-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="flex items-center space-x-4 p-4">
-                    <Skeleton className="h-12 w-12 rounded" />
-                    <div className="flex-1 space-y-2">
-                      <Skeleton className="h-4 w-3/4" />
-                      <Skeleton className="h-4 w-1/2" />
-                    </div>
-                    <Skeleton className="h-4 w-16" />
-                  </div>
-                ))}
-              </div>
-            ) : filteredProducts.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="mb-4 rounded-full bg-gray-100 p-4">
-                  <div className="text-2xl">🔍</div>
-                </div>
-                <h3 className="text-lg font-medium text-gray-900">Товары не найдены</h3>
-                <p className="mt-2 text-sm text-gray-500">
-                  Попробуйте изменить условия поиска или фильтры
-                </p>
-              </div>
-            ) : (
-              <>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Название</TableHead>
-                      <TableHead>Offer ID</TableHead>
-                      <TableHead>Баркод</TableHead>
-                      <TableHead>Размеры</TableHead>
-                      <TableHead>Вес</TableHead>
-                      <TableHead>Изображения</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {currentProducts.map((product) => (
-                      <TableRow key={product.id}>
-                        <TableCell>
-                          <div className="flex items-center">
-                            {product.primary_image && (
-                              <div className="relative mr-3 h-12 w-12 shrink-0 overflow-hidden rounded-md">
-                                <Image
-                                  src={product.primary_image}
-                                  alt={product.name}
-                                  width={48}
-                                  height={48}
-                                  className="object-cover"
-                                />
-                              </div>
-                            )}
-                            <div>
-                              <div className="font-medium">{product.name}</div>
-                              <div className="text-sm text-muted-foreground">ID: {product.id}</div>
-                            </div>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="font-mono">{product.offer_id}</div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="font-mono">
-                            {product.barcode || (product.barcodes.length > 0 ? product.barcodes[0] : 'N/A')}
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          {product.width}×{product.height}×{product.depth} {product.dimension_unit}
-                        </TableCell>
-                        <TableCell>
-                          {product.weight} {product.weight_unit}
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex gap-1">
-                            {product.images.slice(0, 3).map((img, idx) => (
-                              <div key={idx} className="relative h-10 w-10">
-                                <Image
-                                  src={img}
-                                  alt={`Изображение ${idx + 1}`}
-                                  fill
-                                  className="object-cover rounded"
-                                />
-                              </div>
-                            ))}
-                            {product.images.length > 3 && (
-                              <div className="flex items-center justify-center h-10 w-10 bg-gray-100 rounded text-xs">
-                                +{product.images.length - 3}
-                              </div>
-                            )}
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-                
-                <Pagination className="mt-6">
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious 
-                        size="default"
-                        href="#" 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (currentPage > 1) setCurrentPage(currentPage - 1);
-                        }}
-                      />
-                    </PaginationItem>
-                    
-                    {Array.from({ length: Math.min(5, pageCount) }).map((_, i) => {
-                      let pageNum: number;
-                      if (pageCount <= 5) {
-                        pageNum = i + 1;
-                      } else if (currentPage <= 3) {
-                        pageNum = i + 1;
-                      } else if (currentPage >= pageCount - 2) {
-                        pageNum = pageCount - 4 + i;
-                      } else {
-                        pageNum = currentPage - 2 + i;
-                      }
-                      
-                      return (
-                        <PaginationItem key={pageNum}>
-                          <PaginationLink
-                            size="default"
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setCurrentPage(pageNum);
-                            }}
-                            isActive={currentPage === pageNum}
-                          >
-                            {pageNum}
-                          </PaginationLink>
-                        </PaginationItem>
-                      );
-                    })}
-                    
-                    <PaginationItem>
-                      <PaginationNext 
-                        size="default"
-                        href="#" 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (currentPage < pageCount) setCurrentPage(currentPage + 1);
-                        }}
-                      />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </>
-            )}
-          </CardContent>
-        </Card>
+          <div className="w-full sm:w-auto">
+            <DialogOzonAPI />
+          </div>
+          
+          <Button 
+            variant="outline" 
+            className="w-full sm:w-auto"
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Экспорт
+          </Button>
+          
+          <Button className="w-full sm:w-auto">
+            Добавить товар
+          </Button>
+        </div>
       </div>
+
+      <Card>
+        <CardHeader>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="relative w-full md:w-64">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Поиск по товарам..."
+                className="pl-9"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            
+            <div className="flex gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">
+                    <Filter className="mr-2 h-4 w-4" />
+                    Статус: {statusFilter === 'all' ? 'Все' : 
+                      statusFilter === 'active' ? 'Активные' :
+                      statusFilter === 'inactive' ? 'Неактивные' :
+                      statusFilter === 'moderation' ? 'На модерации' :
+                      statusFilter === 'rejected' ? 'Отклонённые' : 'В архиве'}
+                    <ChevronDown className="ml-2 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => setStatusFilter('all')}>Все</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('active')}>Активные</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('inactive')}>Неактивные</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('moderation')}>На модерации</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('rejected')}>Отклонённые</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setStatusFilter('archived')}>В архиве</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+        </CardHeader>
+        
+        <CardContent>
+          {error ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <h3 className="text-lg font-medium text-gray-900">{error}</h3>
+              <p className="mt-2 text-sm text-gray-500">
+                Не удалось загрузить данные с сервера Ozon
+              </p>
+              <Button className="mt-4" onClick={fetchProducts}>
+                Попробовать снова
+              </Button>
+              <p className="m-4 text-sm text-gray-500">
+                Или
+              </p>
+              <DialogOzonAPI />
+            </div>
+          ) : loading ? (
+            <div className="space-y-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} className="flex items-center space-x-4 p-4">
+                  <Skeleton className="h-12 w-12 rounded" />
+                  <div className="flex-1 space-y-2">
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                  <Skeleton className="h-4 w-16" />
+                </div>
+              ))}
+            </div>
+          ) : filteredProducts.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <div className="mb-4 rounded-full bg-gray-100 p-4">
+                <div className="text-2xl">🔍</div>
+              </div>
+              <h3 className="text-lg font-medium text-gray-900">Товары не найдены</h3>
+              <p className="mt-2 text-sm text-gray-500">
+                Попробуйте изменить условия поиска или фильтры
+              </p>
+            </div>
+          ) : (
+            <>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Название</TableHead>
+                    <TableHead>Offer ID</TableHead>
+                    <TableHead>Баркод</TableHead>
+                    <TableHead>Размеры</TableHead>
+                    <TableHead>Вес</TableHead>
+                    <TableHead>Изображения</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {currentProducts.map((product) => (
+                    <TableRow key={product.id}>
+                      <TableCell>
+                        <div className="flex items-center">
+                          {product.primary_image && (
+                            <div className="relative mr-3 h-12 w-12 shrink-0 overflow-hidden rounded-md">
+                              <Image
+                                src={product.primary_image}
+                                alt={product.name}
+                                width={48}
+                                height={48}
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
+                          <div>
+                            <div className="font-medium">{product.name}</div>
+                            <div className="text-sm text-muted-foreground">ID: {product.id}</div>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="font-mono">{product.offer_id}</div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="font-mono">
+                          {product.barcode || (product.barcodes.length > 0 ? product.barcodes[0] : 'N/A')}
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        {product.width}×{product.height}×{product.depth} {product.dimension_unit}
+                      </TableCell>
+                      <TableCell>
+                        {product.weight} {product.weight_unit}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-1">
+                          {product.images.slice(0, 3).map((img, idx) => (
+                            <div key={idx} className="relative h-10 w-10">
+                              <Image
+                                src={img}
+                                alt={`Изображение ${idx + 1}`}
+                                fill
+                                className="object-cover rounded"
+                              />
+                            </div>
+                          ))}
+                          {product.images.length > 3 && (
+                            <div className="flex items-center justify-center h-10 w-10 bg-gray-100 rounded text-xs">
+                              +{product.images.length - 3}
+                            </div>
+                          )}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              
+              <Pagination className="mt-6">
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      size="default"
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage > 1) setCurrentPage(currentPage - 1);
+                      }}
+                    />
+                  </PaginationItem>
+                  
+                  {Array.from({ length: Math.min(5, pageCount) }).map((_, i) => {
+                    let pageNum: number;
+                    if (pageCount <= 5) {
+                      pageNum = i + 1;
+                    } else if (currentPage <= 3) {
+                      pageNum = i + 1;
+                    } else if (currentPage >= pageCount - 2) {
+                      pageNum = pageCount - 4 + i;
+                    } else {
+                      pageNum = currentPage - 2 + i;
+                    }
+                    
+                    return (
+                      <PaginationItem key={pageNum}>
+                        <PaginationLink
+                          size="default"
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentPage(pageNum);
+                          }}
+                          isActive={currentPage === pageNum}
+                        >
+                          {pageNum}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+                  
+                  <PaginationItem>
+                    <PaginationNext 
+                      size="default"
+                      href="#" 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentPage < pageCount) setCurrentPage(currentPage + 1);
+                      }}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }
