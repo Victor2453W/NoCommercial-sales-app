@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Filter, Download, ChevronDown } from "lucide-react"
+import { Search, Filter, Download, ChevronDown, Eye } from "lucide-react"
 import Image from 'next/image';
 import { Skeleton } from "@/components/ui/skeleton"
 import {
@@ -110,7 +110,8 @@ export default function OzonPage() {
 
       const data = await response.json();
       setProducts(data.result || []);
-    } catch {
+    } catch (error) {
+      console.log(error)
       setError('Произошла ошибка при загрузке данных');
     } finally {
       setLoading(false);
@@ -255,7 +256,7 @@ export default function OzonPage() {
           ) : filteredProducts.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <div className="mb-4 rounded-full bg-gray-100 p-4">
-                <div className="text-2xl">🔍</div>
+                <Eye className="text-2xl"></Eye>
               </div>
               <h3 className="text-lg font-medium text-gray-900">Товары не найдены</h3>
               <p className="mt-2 text-sm text-gray-500">

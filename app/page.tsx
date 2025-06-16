@@ -43,7 +43,7 @@ export default function Home() {
               className="w-12 h-12 mb-4"
             />
             <h3 className="text-xl font-bold mb-4">Продвижение товаров</h3>
-            <p className="text-gray-600">Оптимизация карточек, работа с рейтингами, запуск рекламы</p>
+            <p className="text-gray-600">Оптимизация карточек, работа с рейтингами, запуск рекламы, увеличение продаж</p>
           </div>
         </a>
         <div className="p-6 border rounded-xl hover:shadow-lg transition-shadow cursor-pointer scroll-smooth">
