@@ -1,10 +1,10 @@
-import Component from '@/components/TheAnalytics';
-import SheetDemo from '@/components/OzonProduct';
+import Component from '@/app/components/TheAnalytics';
+import SheetDemo from '@/app/components/OzonProduct';
 import Image from 'next/image';
 import { ArrowBigDown } from 'lucide-react';
 import { ArrowBigUp } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button'
+import { Button } from '@/app/ui/button'
 
 export default function Home() {
   return (
@@ -14,20 +14,22 @@ export default function Home() {
         <h1 className="text-4xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Увеличиваем продажи на маркетплейсах
         </h1>
+
         <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
           Автоматизация, аналитика и продвижение ваших товаров на Wildberries, Ozon и Яндекс.Маркет
         </p>
         <section className='flex flex-col sm:flex-row justify-center items-center'>
-          <Button className='my-4 sm:m-8 text-lg p-6 w-full sm:w-auto max-w-xs'>
-            <Link href="/register">
-              Зарегестрироваться
-            </Link>
-          </Button>
-          <Button className='my-4 sm:m-8 text-lg p-6 w-full sm:w-auto max-w-xs'>
-            <Link href="/login">
+          <Link href="/register">
+            <Button className='text-lg p-6 w-full sm:w-auto max-w-xs cursor-pointer'>
+                Зарегистрироваться
+            </Button>
+          </Link>
+          <div className='my-8 sm:m-16' />
+          <Link href="/login">
+            <Button className='text-lg p-6 w-full sm:w-auto max-w-xs cursor-pointer'>
               Уже есть аккаунт?
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </section>
       </header>
 
@@ -377,44 +379,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* <footer>
-        <div>
-          <h1>Руководство проетка</h1>
-          <div>
-            <h2>Сергей Дмитриевич Воложенин <span>(Product Manager)</span></h2>
-            <Image
-              src="/r8mmggzk7iek3dimoash.webp" 
-              alt="Product Manager" 
-              width={64}
-              height={64}
-              className="w-12 h-12 mb-4"
-            />
-          </div>
-          <ul>
-            <li>Оптимизация SEO-параметров</li>
-            <li>Настройка рекламных кампаний</li>
-            <li>Анализ ценовой политики</li>
-          </ul>
-        </div>
-        <div>
-          <div>
-            <h2>Виктор Витальевич Сердюк <span>(Fullstack Developer)</span></h2>
-            <Image
-              src="/5eed97ff-c300-4086-8149-16eceb78063a123.wepb_11zon.jpg"
-              alt="Fullstack Developer" 
-              width={64}
-              height={64}
-              className="w-12 h-12 mb-4"
-            />
-          </div>
-          <ul>
-            <li>Разработка веб приложений с нуля до проды</li>
-            <li>Продвижение в топ по количеству ответов поисковика благодаря самым свежим технологиям веба</li>
-            <li>Создание легко масштабируемых веб приоложений</li>
-          </ul>
-        </div>
-      </footer> */}
     </div>
   )
 }

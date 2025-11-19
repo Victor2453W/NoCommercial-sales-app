@@ -1,17 +1,17 @@
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "@/app/components/app-sidebar"
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+} from "@/app/ui/breadcrumb"
+import { Separator } from "@/app/ui/separator"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { OzonAPIProvider } from "@/context/OzonAPIContext";
+} from "@/app/ui/sidebar"
+import { OzonAPIProvider } from "@/app/context/OzonAPIContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

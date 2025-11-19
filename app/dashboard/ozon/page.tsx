@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react'
-import { useOzonAPIContext } from '@/context/OzonAPIContext'
-import { Card, CardContent, CardHeader} from "@/components/ui/card"
+import { useOzonAPIContext } from '@/app/context/OzonAPIContext'
+import { Card, CardContent, CardHeader} from "@/app/ui/card"
 import {
   Table,
   TableBody,
@@ -10,18 +10,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+} from "@/app/ui/table"
+import { Input } from "@/app/ui/input"
+import { Button } from "@/app/ui/button"
 import { Search, Filter, Download, ChevronDown, Eye } from "lucide-react"
 import Image from 'next/image';
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/app/ui/skeleton"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/app/ui/dropdown-menu"
 import {
   Pagination,
   PaginationContent,
@@ -29,8 +29,8 @@ import {
   PaginationPrevious,
   PaginationLink,
   PaginationNext,
-} from "@/components/ui/pagination"
-import DialogOzonAPI from '@/components/ConnectOzonDialog';
+} from "@/app/ui/pagination"
+import DialogOzonAPI from '@/app/components/ConnectOzonDialog';
 
 // Define explicit status types
 // type ProductStatus = 'active' | 'inactive' | 'moderation' | 'rejected' | 'archived';

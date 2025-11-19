@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/app/ui/card"
 import { BadgeRussianRuble } from "lucide-react"
 import {
   Table,
@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/app/ui/table"
 
 export default async function Page() {
   return (

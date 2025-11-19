@@ -1,6 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent } from "@/app/ui/card"
+import { Button } from "@/app/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/ui/tabs"
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/app/ui/table"
 import {
   Download,
   Plus,
@@ -16,8 +16,8 @@ import {
   Filter,
   MoreHorizontal,
 } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
+import { Input } from "@/app/ui/input"
+import { Badge } from "@/app/ui/badge"
 import { format } from "date-fns"
 import { ru } from "date-fns/locale"
 
