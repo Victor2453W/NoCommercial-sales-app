@@ -1,3 +1,5 @@
+'use client';
+
 import { cn } from "@/app/lib/utils"
 import { Button } from "@/app/ui/button"
 import {
@@ -9,11 +11,23 @@ import {
 } from "@/app/ui/card"
 import { Input } from "@/app/ui/input"
 import { Label } from "@/app/ui/label"
+import { authenticate } from "@/app/lib/actions"
+import { useSearchParams } from "next/navigation"
+import { useActionState } from "react"
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
+  const [errorMessage, formAction, isPending] = useActionState(
+    authenticate,
+    undefined,
+  );
+ 
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -24,7 +38,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={formAction}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full">
@@ -71,9 +85,22 @@ export function LoginForm({
                   </div>
                   <Input id="password" type="password" name="password" required />
                 </div>
-                <Button type="submit" className="w-full">
+                <input type="hidden" name="redirectTo" value={callbackUrl} />
+                <Button type="submit" className="w-full" aria-disabled={isPending}>
                   Login
                 </Button>
+              </div>
+              <div
+                className="flex h-8 items-end space-x-1"
+                aria-live="polite"
+                aria-atomic="true"
+              >
+                {errorMessage && (
+                  <>
+                    <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                    <p className="text-sm text-red-500">{errorMessage}</p>
+                  </>
+                )}
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
