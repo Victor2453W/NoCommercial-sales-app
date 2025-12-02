@@ -1,6 +1,7 @@
 import { GalleryVerticalEnd } from "lucide-react"
+import { Suspense } from 'react';
 
-import { LoginForm } from "@/app/components/login-form"
+import  LoginForm from "@/app/components/login-form"
 
 export default function LoginPage() {
   return (
@@ -12,7 +13,9 @@ export default function LoginPage() {
           </div>
           Acme Inc.
         </a>
-        <LoginForm />
+        <Suspense>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import { GalleryVerticalEnd } from "lucide-react"
+import { Suspense } from 'react';
 
 import RegisterForm from "@/app/components/register-form"
 
@@ -12,7 +13,9 @@ export default function RegisterPage() {
           </div>
           Acme Inc.
         </a>
-        <RegisterForm />
+        <Suspense>
+          <RegisterForm />
+        </Suspense>
       </div>
     </div>
   )

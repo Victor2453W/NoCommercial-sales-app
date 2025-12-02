@@ -16,7 +16,7 @@ import { useSearchParams } from "next/navigation"
 import { useActionState } from "react"
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
 
-export function LoginForm({
+export default function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
