@@ -9,6 +9,8 @@ import postgres from 'postgres';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
+import { signOut } from '@/auth';
+
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 const RegisterFormSchema = z.object({
@@ -76,4 +78,9 @@ export async function register(
 
   // Redirect to login page after successful registration
   redirect('/login');
+}
+
+export async function handleSignOut() {
+  // signOut уже содержит логику перенаправления (redirectTo: '/')
+  await signOut({ redirectTo: '/' });
 }

@@ -6,6 +6,7 @@ import {
   ChevronsUpDown,
   CreditCard,
   Sparkles,
+  LogOut,
 } from "lucide-react"
 
 import { LogOutButton } from "@/app/ui/logout"
@@ -104,8 +105,7 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              {/* <LogOut />
-              Log out */}
+              <LogOut />
               <LogOutButton />
             </DropdownMenuItem>
           </DropdownMenuContent>
