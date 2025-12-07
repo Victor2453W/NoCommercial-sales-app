@@ -1,7 +1,6 @@
 import type { NextAuthConfig, Session } from 'next-auth';
 
 export const authConfig = {
-  trustHost: true,
   pages: {
     signIn: '/login',
     // Add signUp page if you want different behavior
