@@ -14,6 +14,7 @@ import { signOut } from '@/auth';
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 const RegisterFormSchema = z.object({
+  name: z.string().min(1, { message: 'Name is required.' }),
   email: z.string().email({ message: 'Please enter a valid email address.' }),
   password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
 });
@@ -42,6 +43,7 @@ export async function register(
   formData: FormData,
 ) {
   const validatedFields = RegisterFormSchema.safeParse({
+    name: formData.get('name'),
     email: formData.get('email'),
     password: formData.get('password'),
   });
@@ -50,7 +52,7 @@ export async function register(
     return 'Missing Fields. Failed to Register.';
   }
 
-  const { email, password } = validatedFields.data;
+  const { name, email, password } = validatedFields.data;
 
   try {
     // Check if user already exists
@@ -67,8 +69,8 @@ export async function register(
 
     // Insert new user
     await sql`
-      INSERT INTO users ( email, password)
-      VALUES ( ${email}, ${hashedPassword})
+      INSERT INTO users (name, email, password)
+      VALUES (${name}, ${email}, ${hashedPassword})
     `;
 
   } catch (error) {

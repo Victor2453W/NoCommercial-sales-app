@@ -60,6 +60,16 @@ export default function RegisterForm({
               </div>
               <div className="grid gap-6">
                 <div className="grid gap-3">
+                  <Label htmlFor="email">Name</Label>
+                  <Input
+                    id="name"
+                    type="name"
+                    name="name"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
+                <div className="grid gap-3">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
